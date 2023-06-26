@@ -6,15 +6,17 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Denis-Andrei/bookings/pkg/config"
-	"github.com/Denis-Andrei/bookings/pkg/handlers"
-	"github.com/Denis-Andrei/bookings/pkg/render"
+	"github.com/Denis-Andrei/bookings/internal/config"
+	"github.com/Denis-Andrei/bookings/internal/handlers"
+	"github.com/Denis-Andrei/bookings/internal/render"
 	"github.com/alexedwards/scs/v2"
 )
 
 const portNumber = ":8080"
+
 var app config.Appconfig
 var session *scs.SessionManager
+
 func main() {
 
 	//change this to true when in prod
@@ -45,7 +47,7 @@ func main() {
 	fmt.Println(fmt.Sprintf("Starting app on port %s", portNumber))
 
 	srv := &http.Server{
-		Addr: portNumber, 
+		Addr:    portNumber,
 		Handler: routes(&app),
 	}
 

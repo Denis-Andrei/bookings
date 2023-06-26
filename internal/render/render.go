@@ -7,16 +7,15 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/Denis-Andrei/bookings/pkg/config"
-	"github.com/Denis-Andrei/bookings/pkg/models"
+	"github.com/Denis-Andrei/bookings/internal/config"
+	"github.com/Denis-Andrei/bookings/internal/models"
 	"github.com/justinas/nosurf"
 )
 
-
 var app *config.Appconfig
 
-//NewTemplate sets the config for the template package
-func NewTemplates(a *config.Appconfig){
+// NewTemplate sets the config for the template package
+func NewTemplates(a *config.Appconfig) {
 	app = a
 }
 
@@ -31,18 +30,17 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *mod
 	if app.UseCache {
 		//get the template cache from the app config
 		tc = app.TemplateCache
-	}else{
+	} else {
 		tc, _ = CreateTemplateCache()
 	}
-	
-	
+
 	//get requested template from cache
 	t, ok := tc[tmpl]
 	if !ok {
 		log.Fatal("Could not get template from template cache")
 	}
 
-	// this is an arbitrary choise and is not needed 
+	// this is an arbitrary choise and is not needed
 	// this will hold bytes
 	//	****Execute that buffer directly and then write it out.***
 	// And the only reason I'm doing this is for finer grained error checking, because once I have declared
@@ -52,7 +50,7 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *mod
 
 	err := t.Execute(buffer, td)
 
-	if err !=nil {
+	if err != nil {
 		log.Println(err)
 	}
 
