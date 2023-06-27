@@ -1,6 +1,8 @@
 package models
 
-//TeamplateData hold data send from handlers to templates
+import "github.com/Denis-Andrei/bookings/internal/forms"
+
+// TeamplateData hold data send from handlers to templates
 type TemplateData struct {
 	StringMap map[string]string
 	IntMap    map[string]int
@@ -10,4 +12,5 @@ type TemplateData struct {
 	Flash     string
 	Warning   string
 	Error     string
+	Form      *forms.Form
 }
