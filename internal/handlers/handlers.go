@@ -2,16 +2,13 @@ package handlers
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
-	"log"
-	"net/http"
-
 	"github.com/Denis-Andrei/bookings/internal/config"
 	"github.com/Denis-Andrei/bookings/internal/forms"
 	"github.com/Denis-Andrei/bookings/internal/helpers"
 	"github.com/Denis-Andrei/bookings/internal/models"
 	"github.com/Denis-Andrei/bookings/internal/render"
+	"net/http"
 )
 
 var Repo *Repository
@@ -66,21 +63,20 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	reservation := models.Reservation {
+	reservation := models.Reservation{
 		FirstName: r.Form.Get("first_name"),
-		LastName: r.Form.Get("last_name"),
-		Email: r.Form.Get("email"),
-		Phone: r.Form.Get("phone"),
+		LastName:  r.Form.Get("last_name"),
+		Email:     r.Form.Get("email"),
+		Phone:     r.Form.Get("phone"),
 	}
 
-	
 	form := forms.New(r.PostForm)
 
 	//add rules for validation
 	form.Required("first_name", "last_name", "email")
 	form.MinLength("first_name", 3, r)
 	form.IsEmail("email")
-	
+
 	if !form.Valid() {
 		data := make(map[string]interface{})
 		data["reservation"] = reservation
@@ -89,7 +85,6 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 			Form: form,
 			Data: data,
 		})
-
 
 		return
 	}

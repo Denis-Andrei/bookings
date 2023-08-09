@@ -3,17 +3,16 @@ package main
 import (
 	"encoding/gob"
 	"fmt"
-	"log"
-	"net/http"
-	"os"
-	"time"
-
 	"github.com/Denis-Andrei/bookings/internal/config"
 	"github.com/Denis-Andrei/bookings/internal/handlers"
 	"github.com/Denis-Andrei/bookings/internal/helpers"
 	"github.com/Denis-Andrei/bookings/internal/models"
 	"github.com/Denis-Andrei/bookings/internal/render"
 	"github.com/alexedwards/scs/v2"
+	"log"
+	"net/http"
+	"os"
+	"time"
 )
 
 const portNumber = ":8080"
@@ -42,7 +41,7 @@ func main() {
 	log.Fatal(err)
 }
 
-func run() error{
+func run() error {
 	//define what I can put in the session
 	gob.Register(models.Reservation{})
 
